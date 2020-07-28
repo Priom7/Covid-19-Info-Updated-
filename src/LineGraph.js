@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { numeral } from "numeral";
+import numeral from "numeral";
 import { Line } from "react-chartjs-2";
 
-function LineGraph() {
+function LineGraph({ caseType = "cases" }) {
   const [data, setData] = useState({});
 
   const options = {
@@ -20,7 +20,7 @@ function LineGraph() {
       intersect: false,
       callbacks: {
         label: function (tooltipItem, data) {
-          return numeral(tooltipItem.value).format("+0.0");
+          return numeral(tooltipItem.value).format("+0,0");
         },
       },
     },
@@ -40,7 +40,7 @@ function LineGraph() {
             display: false,
           },
           ticks: {
-            callback: function (value, index, values) {
+            callbacks: function (value, index, values) {
               return numeral(value).format("0a");
             },
           },
@@ -53,7 +53,7 @@ function LineGraph() {
     const chartData = [];
     let lastDataPoint;
 
-    for (let data in data.cases) {
+    for (let date in data.cases) {
       if (lastDataPoint) {
         const newDataPoint = {
           x: date,
@@ -65,7 +65,7 @@ function LineGraph() {
     }
     return chartData;
   };
-
+  console.log(data);
   useEffect(() => {
     const getData = async () => {
       await fetch(
@@ -83,18 +83,20 @@ function LineGraph() {
   return (
     <div>
       <h1>LineGraph</h1>
-      <Line
-        options={options}
-        data={{
-          datasets: [
-            {
-              data: data,
-              backgroundColor: "rgba(204, 16, 52, 0.5)",
-              borderColor: "#CC1034",
-            },
-          ],
-        }}
-      ></Line>
+      {data?.length > 0 && (
+        <Line
+          options={options}
+          data={{
+            datasets: [
+              {
+                data: data,
+                backgroundColor: "rgba(204, 16, 52, 0.5)",
+                borderColor: "#cc1034",
+              },
+            ],
+          }}
+        ></Line>
+      )}
     </div>
   );
 }
