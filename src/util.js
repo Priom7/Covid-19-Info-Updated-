@@ -28,6 +28,9 @@ export const sortData = (data) => {
   );
 };
 
+export const numStyle = (stat) =>
+  stat ? ` ${numeral(stat).format("0.0a")}` : "+0";
+
 export const showDataOnMap = (data, caseType = "cases") =>
   data.map((country) => (
     <Circle

@@ -6,7 +6,7 @@ import {
 import "./Map.css";
 import { showDataOnMap } from "./util";
 
-function Map({ countries, center, zoom }) {
+function Map({ countries, caseType, center, zoom }) {
   return (
     <div className='map'>
       <LeafletMap center={center} zoom={zoom}>
@@ -14,7 +14,7 @@ function Map({ countries, center, zoom }) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        {showDataOnMap(countries)}
+        {showDataOnMap(countries, caseType)}
       </LeafletMap>
     </div>
   );

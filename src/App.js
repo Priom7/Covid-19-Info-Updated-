@@ -10,11 +10,12 @@ import "./App.css";
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import Table from "./Table";
-import { sortData } from "./util";
+import { sortData, numStyle } from "./util";
 import LineGraph from "./LineGraph";
 import "leaflet/dist/leaflet.css";
-
+import virus from "./icons/virus.png";
 function App() {
+  const [caseType, setCaseType] = useState("cases");
   const [countries, setCounties] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState();
@@ -66,75 +67,156 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
-        setCenterMap([
-          data.countryInfo.lat,
-          data.countryInfo.long,
-        ]);
-        setZoomMap(5);
+        countryCode === "worldwide"
+          ? setCenterMap([34.80746, -40.4796]) &&
+            setZoomMap(3)
+          : setCenterMap([
+              data.countryInfo.lat,
+              data.countryInfo.long,
+            ]) && setZoomMap(5);
         console.log(data);
       });
   };
   console.log(countryInfo);
 
   return (
-    <div className='app'>
-      <div className='app__left'>
-        <div className='app__header'>
-          <h1>Covid-19 Info</h1>
-          <FormControl className='app__dropdown'>
-            <Select
-              variant='outlined'
-              onChange={onCountryChange}
-              value={country}
-            >
-              <MenuItem value='worldwide'>
-                Worldwide
-              </MenuItem>
-              {countries.map((country) => (
+    <>
+      <div className='app'>
+        <div className='app__left'>
+          <div className='app__header'>
+            <div className='app__headerIcon'>
+              <img
+                src={virus}
+                style={{ height: "50px", width: "50px" }}
+              ></img>
+              <h1>Covid-19 Info.</h1>
+            </div>
+            <FormControl className='app__dropdown'>
+              <Select
+                variant='outlined'
+                onChange={onCountryChange}
+                value={country}
+                className='app__select'
+              >
                 <MenuItem
-                  key={country.name}
-                  value={country.value}
+                  className='app__item'
+                  value='worldwide'
                 >
-                  {country.name}
+                  Worldwide
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        {countryInfo && (
-          <div className='app__infoData'>
-            <InfoBox
-              title='Infected'
-              cases={countryInfo.todayCases}
-              total={countryInfo.cases}
-            ></InfoBox>
-            <InfoBox
-              title='Recovered'
-              cases={countryInfo.todayRecovered}
-              total={countryInfo.recovered}
-            ></InfoBox>
-            <InfoBox
-              title='Deaths'
-              cases={countryInfo.todayDeaths}
-              total={countryInfo.deaths}
-            ></InfoBox>
+                {countries.map((country) => (
+                  <MenuItem
+                    className='app__item'
+                    key={country.name}
+                    value={country.value}
+                  >
+                    {country.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
-        )}
-        <Map
-          countries={mapCountries}
-          center={centerMap}
-          zoom={zoomMap}
-        ></Map>
+          {countryInfo && (
+            <div className='app__infoData'>
+              <InfoBox
+                onClick={(e) => setCaseType("cases")}
+                title='Infected'
+                cases={numStyle(countryInfo.todayCases)}
+                total={numStyle(countryInfo.cases)}
+              ></InfoBox>
+              <InfoBox
+                onClick={(e) => setCaseType("recovered")}
+                title='Recovered'
+                cases={numStyle(countryInfo.todayRecovered)}
+                total={numStyle(countryInfo.recovered)}
+              ></InfoBox>
+              <InfoBox
+                onClick={(e) => setCaseType("deaths")}
+                title='Deaths'
+                cases={numStyle(countryInfo.todayDeaths)}
+                total={numStyle(countryInfo.deaths)}
+              ></InfoBox>
+            </div>
+          )}
+          <Map
+            caseType={caseType}
+            countries={mapCountries}
+            center={centerMap}
+            zoom={zoomMap}
+          ></Map>
+        </div>
+        <Card className='app__right'>
+          <CardContent>
+            <h3 style={{ color: "wheat" }}>
+              Live Cases By Country
+            </h3>
+            <div className='app__caseType'>
+              <p>
+                <strong style={{ color: "wheat" }}>
+                  Country
+                </strong>
+              </p>
+              <p>
+                <strong style={{ color: "yellow" }}>
+                  Cases
+                </strong>
+              </p>
+
+              <p>
+                <strong style={{ color: "#66ff00" }}>
+                  Recovered
+                </strong>
+              </p>
+
+              <p>
+                {" "}
+                <strong style={{ color: "red" }}>
+                  Deaths
+                </strong>
+              </p>
+            </div>
+            <Table countries={tableData}></Table>
+            <br></br>
+            <hr></hr>
+            <h3 style={{ color: "wheat" }}>
+              World Wide {caseType}
+            </h3>
+            <LineGraph caseType={caseType}></LineGraph>
+          </CardContent>
+        </Card>
       </div>
-      <Card className='app__right'>
-        <CardContent>
-          <h3>Live Case By Country</h3>
-          <Table countries={tableData}></Table>
-          <h3> World Wide New Cases</h3>
-          <LineGraph></LineGraph>
-        </CardContent>
-      </Card>
-    </div>
+      <div>
+        <footer>
+          <small>
+            {" "}
+            Icons made by{" "}
+            <a
+              href='http://www.freepik.com/'
+              title='Freepik'
+            >
+              Freepik
+            </a>
+            <a
+              href='https://www.flaticon.com/'
+              title='Flaticon'
+            ></a>
+            <a
+              href='https://www.flaticon.com/authors/icongeek26'
+              title='Icongeek26'
+            >
+              Icongeek26
+            </a>{" "}
+            from{" "}
+            <a
+              href='https://www.flaticon.com/'
+              title='Flaticon'
+            >
+              www.flaticon.com
+            </a>
+          </small>
+        </footer>
+      </div>
+    </>
   );
 }
 

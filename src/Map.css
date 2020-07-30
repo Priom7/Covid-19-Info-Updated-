@@ -1,10 +1,10 @@
 .map {
-  height: 500px;
-  background-color: white;
+  height: 400px;
+  background-color: #1b1b1b;
   padding: 1rem;
-  border-radius: 20px;
+  border-radius: 15px;
   margin-top: 20px;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
   margin-bottom: 20px;
 }
 

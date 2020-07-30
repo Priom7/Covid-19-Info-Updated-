@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #dfc674;
+  background-color: #fafafa;
 }
 
 .app {
@@ -14,6 +14,12 @@ body {
 
 .app__left {
   flex: 0.9;
+}
+
+.app__right {
+  background-color: #1b1b1b !important;
+  color: wheat;
+  border-radius: 15px !important;
 }
 .app__header {
   display: flex;
@@ -27,7 +33,19 @@ body {
   justify-content: space-between;
 }
 
+.app__caseType {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app__headerIcon {
+  display: flex;
+  padding: 5px;
+  margin: 2px;
+}
+
 @media (max-width: 990px) {
+  .app__infoData,
   .app {
     flex-direction: column;
   }
