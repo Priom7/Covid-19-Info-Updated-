@@ -14,6 +14,7 @@ import { sortData, numStyle } from "./util";
 import LineGraph from "./LineGraph";
 import "leaflet/dist/leaflet.css";
 import virus from "./icons/virus.png";
+
 function App() {
   const [caseType, setCaseType] = useState("cases");
   const [countries, setCounties] = useState([]);
@@ -116,6 +117,12 @@ function App() {
               </Select>
             </FormControl>
           </div>
+          <Map
+            caseType={caseType}
+            countries={mapCountries}
+            center={centerMap}
+            zoom={zoomMap}
+          ></Map>
           {countryInfo && (
             <div className='app__infoData'>
               <InfoBox
@@ -138,12 +145,6 @@ function App() {
               ></InfoBox>
             </div>
           )}
-          <Map
-            caseType={caseType}
-            countries={mapCountries}
-            center={centerMap}
-            zoom={zoomMap}
-          ></Map>
         </div>
         <Card className='app__right'>
           <CardContent>
@@ -212,6 +213,10 @@ function App() {
               title='Flaticon'
             >
               www.flaticon.com
+            </a>{" "}
+            app made by{" "}
+            <a href='https://vigorous-mirzakhani-1c2a13.netlify.app/'>
+              Md. Sharif Alam
             </a>
           </small>
         </footer>
