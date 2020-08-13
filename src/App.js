@@ -75,10 +75,8 @@ function App() {
               data.countryInfo.lat,
               data.countryInfo.long,
             ]) && setZoomMap(5);
-        console.log(data);
       });
   };
-  console.log(countryInfo);
 
   return (
     <>
@@ -117,12 +115,6 @@ function App() {
               </Select>
             </FormControl>
           </div>
-          <Map
-            caseType={caseType}
-            countries={mapCountries}
-            center={centerMap}
-            zoom={zoomMap}
-          ></Map>
           {countryInfo && (
             <div className='app__infoData'>
               <InfoBox
@@ -145,13 +137,30 @@ function App() {
               ></InfoBox>
             </div>
           )}
+          <Map
+            caseType={caseType}
+            countries={mapCountries}
+            center={centerMap}
+            zoom={zoomMap}
+          ></Map>
         </div>
         <Card className='app__right'>
-          <CardContent>
+          <CardContent className='card__content'>
             <h3 style={{ color: "wheat" }}>
-              Live Cases By Country
+              World Wide {caseType}
             </h3>
+            <LineGraph caseType={caseType}></LineGraph>
+            <br></br>
+            <hr></hr>
+
             <div className='app__caseType'>
+              <h3
+                style={{
+                  color: "wheat",
+                }}
+              >
+                Live Cases By Country
+              </h3>
               <p>
                 <strong style={{ color: "wheat" }}>
                   Country
@@ -177,12 +186,6 @@ function App() {
               </p>
             </div>
             <Table countries={tableData}></Table>
-            <br></br>
-            <hr></hr>
-            <h3 style={{ color: "wheat" }}>
-              World Wide {caseType}
-            </h3>
-            <LineGraph caseType={caseType}></LineGraph>
           </CardContent>
         </Card>
       </div>

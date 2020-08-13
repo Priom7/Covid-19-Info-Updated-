@@ -39,3 +39,16 @@
   font-weight: bold;
   color: gray;
 }
+/* 
+.map__graph {
+  z-index: 1;
+  display: flex;
+  height: 400px;
+  width: 400px;
+  align-self: center;
+  opacity: 0.5;
+} */
+
+.map__items {
+  display: flex;
+}

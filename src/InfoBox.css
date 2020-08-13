@@ -7,7 +7,7 @@
   flex: 1;
   margin: 10px;
   background-color: #1b1b1b !important;
-
+  cursor: pointer;
   border-radius: 15px !important;
 }
 .infoBoxR {
@@ -17,6 +17,7 @@
   align-items: center;
   flex-wrap: wrap;
   flex: 1;
+  cursor: pointer;
   margin: 10px;
   background-color: #1b1b1b !important;
 
@@ -26,6 +27,7 @@
   padding: 5px;
   display: flex;
   margin: 10px;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;

@@ -80,8 +80,6 @@ function LineGraph({ caseType = "cases" }) {
     getData();
   }, [caseType]);
 
-  console.log(data);
-
   return (
     <div>
       {data?.length > 0 && caseType === "cases" && (
