@@ -115,6 +115,13 @@ function App() {
               </Select>
             </FormControl>
           </div>
+
+          <Map
+            caseType={caseType}
+            countries={mapCountries}
+            center={centerMap}
+            zoom={zoomMap}
+          ></Map>
           {countryInfo && (
             <div className='app__infoData'>
               <InfoBox
@@ -137,12 +144,6 @@ function App() {
               ></InfoBox>
             </div>
           )}
-          <Map
-            caseType={caseType}
-            countries={mapCountries}
-            center={centerMap}
-            zoom={zoomMap}
-          ></Map>
         </div>
         <Card className='app__right'>
           <CardContent className='card__content'>
