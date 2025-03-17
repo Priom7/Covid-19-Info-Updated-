@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "chart.js": "^2.9.3",
     "leaflet": "^1.6.0",
-    "material-table": "^1.67.1",
+    "material-table": "^1.69.3",
     "numeral": "^2.0.6",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
